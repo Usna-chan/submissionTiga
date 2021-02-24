@@ -1,0 +1,108 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final appTitle = 'Form Validation Demo';
+
+    return MaterialApp(
+      title: appTitle,
+      home: Scaffold(
+        body: LoginDepan(),
+      ),
+    );
+  }
+}
+
+class LoginDepan extends StatefulWidget {
+  @override
+  _LoginDepanState createState() => _LoginDepanState();
+}
+
+class _LoginDepanState extends State<LoginDepan> {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Padding(
+            padding: EdgeInsets.fromLTRB(10,200,10,200),
+            child: ListView(
+              children: <Widget>[
+                Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      'Codeplayon',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 30),
+                    )),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Isi Username terlebih dahulu.';
+                      }
+                      return null;
+                    },
+                    controller: usernameController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'User Name',
+                    ),
+                    
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Isi Password terlebih dahulu.';
+                      }
+                      return null;
+                    },
+                    obscureText: true,
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Password',
+                    ),
+                  ),
+                ),
+                Container(
+                    height: 100.0,
+                    alignment: FractionalOffset.center,
+                    child: RaisedButton(
+                      padding: EdgeInsets.fromLTRB(70, 20, 70, 20),
+                      textColor: Colors.white,
+                      color: Colors.blue,
+                      child: Text('Login'),
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(20),
+                      ),
+                      onPressed: () {
+                        if(usernameController.text == 'udacodingid' && passwordController.text == 'udacodingJaya2021'){
+                          Scaffold.of(context).showSnackBar(
+                            SnackBar(content: Text('Berhasil Login'))
+                          );
+                        }
+                        else if(usernameController.text == 'udacodingid' || passwordController.text == 'udacodingJaya2021'){
+                          Scaffold.of(context).showSnackBar(
+                            SnackBar(content: Text('Username atau Password anda salah'))
+                          );
+                        }
+                      },
+                    )),
+              ],
+            ))
+    );
+  }
+}
